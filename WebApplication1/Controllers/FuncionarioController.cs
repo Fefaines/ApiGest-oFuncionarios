@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿//Nessa parte do Projeto é onde fica a classe FuncionarioController, que é a classe que recebe as requisições do cliente e retorna as respostas.
+
+using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Models;
 using WebApplication1.Service.FuncionarioService;
 

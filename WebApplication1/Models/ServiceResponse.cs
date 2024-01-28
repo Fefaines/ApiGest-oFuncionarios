@@ -1,4 +1,6 @@
-﻿namespace WebApplication1.Models
+﻿// O que retornará na tela quando fizermos uma requisição.
+
+namespace WebApplication1.Models
 {
     public class ServiceResponse<T> //<T>= Significa o Service Respomse pode receceber qualquer tipo de objeto, e não só o dos funcionários//
     {

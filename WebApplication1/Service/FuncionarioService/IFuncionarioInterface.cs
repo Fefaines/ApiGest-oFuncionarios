@@ -1,4 +1,6 @@
-﻿using WebApplication1.Models;
+﻿// Nessa parte do projeto é onde temos todos os Métodos que serão utilizados no controller FuncionarioController.
+
+using WebApplication1.Models;
 
 namespace WebApplication1.Service.FuncionarioService
 {
@@ -9,8 +11,8 @@ namespace WebApplication1.Service.FuncionarioService
         Task<ServiceResponse<List<FuncionarioModel>>> GetFuncionario();
 
         // CreateFuncionario() é nome que damos ao metodo que cria um novo FuncionarioModel no banco de dados.
-        Task<ServiceResponse<List<FuncionarioModel>>> CreateFuncionario(FuncionarioModel NovoFuncionario);
-        
+        Task<ServiceResponse<List<FuncionarioModel>>> CreateFuncionario(FuncionarioModel novoFuncionario);
+
         //Consulta um funcionario pelo id
         Task<ServiceResponse<FuncionarioModel>> GetFuncionarioById(int id);
 

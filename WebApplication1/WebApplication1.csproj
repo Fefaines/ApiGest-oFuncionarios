@@ -15,6 +15,9 @@
 
   <ItemGroup>
     <Compile Remove="Enums\DepartamentoIdEnum.cs" />
+    <Compile Remove="Migrations\20240123000802_AddFuncionarioFoto2.cs" />
+    <Compile Remove="Migrations\20240123000802_AddFuncionarioFoto2.Designer.cs" />
+    <Compile Remove="Migrations\ApplicationDbContextModelSnapshot.cs" />
     <Compile Remove="Models\DepartamentoId.cs" />
   </ItemGroup>
 
