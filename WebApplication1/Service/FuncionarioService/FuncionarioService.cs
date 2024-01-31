@@ -24,17 +24,28 @@ namespace WebApplication1.Service.FuncionarioService
         //Método que cria um novo funcionario. Ele está recebendo um objeto do tipo FuncionarioModel, que é o modelo de dados que representa a tabela Funcionario no banco de dados.
         public async Task<ServiceResponse<List<FuncionarioModel>>> CreateFuncionario(FuncionarioModel novoFuncionario)
         {
+            //Armazendo o resultado da operação em um ServiceResponse
             ServiceResponse<List<FuncionarioModel>> serviceResponse = new ServiceResponse<List<FuncionarioModel>>();
 
-
-            //Etapa de filtragem de erro para não passar erro para o front-end.
             try
             {
-                // Verifica se o objeto novoFuncionario é nulo, se for, retorna uma mensagem de erro.
                 if (novoFuncionario == null)
                 {
                     serviceResponse.Dados = null;
                     serviceResponse.Mensagem = "Informar dados!";
+                    serviceResponse.Sucesso = false;
+
+                    return serviceResponse;
+                }
+
+                // Verifica se já existe um funcionário com o mesmo nome e sobrenome
+                bool funcionarioExistente = _context.Funcionarios.Any(f => f.Nome == novoFuncionario.Nome && f.Sobrenome == novoFuncionario.Sobrenome);
+
+                if (funcionarioExistente)
+                {
+                    // Funcionário já cadastrado
+                    serviceResponse.Dados = null;
+                    serviceResponse.Mensagem = "Funcionário já cadastrado";
                     serviceResponse.Sucesso = false;
 
                     return serviceResponse;
@@ -48,8 +59,6 @@ namespace WebApplication1.Service.FuncionarioService
 
                 // Atualiza os dados no ServiceResponse com a lista de todos os funcionários após a adição
                 serviceResponse.Dados = _context.Funcionarios.ToList();
-
-
             }
             catch (Exception ex)
             {
@@ -61,8 +70,8 @@ namespace WebApplication1.Service.FuncionarioService
         }
 
 
-        //Método que deleta o Funcionario
-        public async Task<ServiceResponse<List<FuncionarioModel>>> DeleteFuncionario(int id)
+         //Método que deleta o Funcionario
+         public async Task<ServiceResponse<List<FuncionarioModel>>> DeleteFuncionario(int id)
         {
             //Cria uma nova instância de ServiceResponse para armazenar a resposta da operação.
             ServiceResponse<List<FuncionarioModel>> serviceResponse = new ServiceResponse<List<FuncionarioModel>>();
@@ -161,7 +170,7 @@ namespace WebApplication1.Service.FuncionarioService
             return serviceResponse;
         }
 
-        //Método que 
+        //Método que Edita os dados do Funcionário.
         public async Task<ServiceResponse<List<FuncionarioModel>>> UpdateFuncionario(FuncionarioModel editadoFuncionario)
         {
             ServiceResponse<List<FuncionarioModel>> serviceResponse = new ServiceResponse<List<FuncionarioModel>>();
@@ -169,6 +178,8 @@ namespace WebApplication1.Service.FuncionarioService
             try
             {
                 // Tenta obter as informações do funcionário original (sem rastreamento) pelo ID fornecido.
+                //AsNoTracking doi usado para informar ao Entity Framework Core que você não planeja atualizar a entidade recuperada. Ele otimiza a consulta, pois não rastreia as alterações nas entidades, útil quando você apenas precisa ler dados e não modificá-los.
+
                 FuncionarioModel funcionario = _context.Funcionarios.AsNoTracking().FirstOrDefault(x => x.Id == editadoFuncionario.Id);
 
                 // Verifica se o funcionário foi encontrado. Caso negativo ele exibirá uma mensagem de erro.

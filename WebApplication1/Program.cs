@@ -1,3 +1,4 @@
+//Essa parte do projeto serve para configurar o banco de dados, e para adicionar os serviços que serão utilizados no projeto.
 
 
 using Microsoft.EntityFrameworkCore;
